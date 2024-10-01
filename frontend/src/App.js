@@ -21,13 +21,13 @@ const App = () => {
   }, []);
 
   const fetchTasks = async () => {
-    const response = await axios.get('http://localhost:5000/api/tasks');
+    const response = await axios.get('https://new-assignment-todo.onrender.com/api/tasks');
     setTasks(response.data);
   };
 
   const addTask = async () => {
     const newTask = { title: taskTitle, description: taskDescription, status: 'To Do', timeSpent: 0 };
-    const response = await axios.post('http://localhost:5000/api/tasks', newTask);
+    const response = await axios.post('https://new-assignment-todo.onrender.com/api/tasks', newTask);
     setTasks((prevTasks) => [...prevTasks, response.data]);
     setTaskTitle('');
     setTaskDescription('');
@@ -45,7 +45,7 @@ const App = () => {
     });
     
     if (result.isConfirmed) {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      await axios.delete(`https://new-assignment-todo.onrender.com/api/tasks/${id}`);
       setTasks((prevTasks) => prevTasks.filter(task => task.id !== id));
       Swal.fire('Deleted!', 'Your task has been deleted.', 'success');
     }
@@ -53,7 +53,7 @@ const App = () => {
 
   const updateTaskStatus = async (id, newStatus) => {
     const updatedTask = tasks.find(task => task.id === id);
-    await axios.patch(`http://localhost:5000/api/tasks/${id}`, {
+    await axios.patch(`https://new-assignment-todo.onrender.com/api/tasks/${id}`, {
       status: newStatus,
       timeSpent: updatedTask.timeSpent,
     });
@@ -103,7 +103,7 @@ const App = () => {
       title: editTitle,
       description: editDescription,
     };
-    await axios.put(`http://localhost:5000/api/tasks/${id}`, updatedTask);
+    await axios.put(`https://new-assignment-todo.onrender.com/api/tasks/${id}`, updatedTask);
     setTasks(tasks.map((task) => (task.id === id ? { ...task, ...updatedTask } : task)));
     setEditingTaskId(null);
   };
